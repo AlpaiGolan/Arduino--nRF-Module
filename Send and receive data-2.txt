@@ -1,0 +1,16 @@
+void readWireless()
+{
+    wireless.startListening();
+    wireless.read(&LEDStatus, sizeof(LEDStatus));
+}
+ 
+void writeWireless()
+{
+    wireless.stopListening();
+    servoStatus = map(analogRead(potentiometer), 0, 1023, 0, 180);
+    if (servoStatus < 10)
+        servoStatus = 0;
+    else if (servoStatus > 170)
+        servoStatus = 180;
+    wireless.write(&servoStatus, sizeof(servoStatus));
+}
